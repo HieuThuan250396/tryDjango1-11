@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block head_title %} {{title}} | {{ block.super }} {% endblock head_title %}
+
+{% block content %}
+<h1> {{title}} </h1>
+
+{% if form.instance %}
+    <h1>{{form.instance.name}}</h1>
+{% endif %}
+    
+{% if form.errors %}
+    {{form.errors}}
+{% else %}
+{% endif %}
+<form method="POST">{% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" >Save</button>
+</form>
+    
+{% endblock content %}
