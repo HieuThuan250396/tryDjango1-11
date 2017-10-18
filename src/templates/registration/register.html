@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="">
+    <h1>Register</h1>
+    <form method="post" action="{% url 'register' %}">
+    {% csrf_token %}
+    {{form.as_p}}
+    
+    <input type="submit" class="btn btn-primary" value="register" />
+    <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+    <p>Do you need to <a href='{% url "login" %}'>Login</a> ?</p>
+</div>
+
+
+{# Assumes you setup the password_reset view in your URLconf #}
+
+{% endblock %}

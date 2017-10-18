@@ -6,16 +6,12 @@
 <h1> {{title}} </h1>
 
 {% if form.instance %}
-    <h1>{{form.instance.name}}</h1>
+<h1>{{form.instance.name}}</h1>
 {% endif %}
-    
-{% if form.errors %}
-    {{form.errors}}
-{% else %}
+{% if form.errors.non_field_errors %}
+{{form.errors.non_field_errors}}
 {% endif %}
-<form method="POST">{% csrf_token %}
-    {{form.as_p}}
-    <button type="submit" >Save</button>
-</form>
+
+{% include 'snippets/form-snippet.html' %}
     
 {% endblock content %}

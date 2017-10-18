@@ -20,6 +20,9 @@ class Item(models.Model):
     class Meta:
         ordering = ['-updated', '-timestamp'] #item.objects.all()
 
+    def __str__(self):
+        return self.name
+
     def get_contents(self):
         return self.contents.split(",")
     

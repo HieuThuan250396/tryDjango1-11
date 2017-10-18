@@ -1,0 +1,51 @@
+{% extends "base.html" %} {% block head_title %} User Profiles | {{ block.super }} {% endblock head_title %} 
+{% block content %}
+<h1>{{user.username}}</h1> 
+    
+<p>{% include 'profiles/snippets/follow_form.html' with username=user.username is_following=is_following %}</p>
+<form class="form" method="GET" action=".">
+    <input type="text" placeholder="Search.." name="q" value="{{ request.GET.q }}">
+    <button class="btn" type="submit">Search</button>
+</form>
+
+<hr/> {% if locations %} {% for res in locations %}
+<ul>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="thumbnail">
+                <h4>
+                    <b>{{res.name}}</b>
+                </h4>
+                <p>
+                    <a href="{{request.path}}?q={{res.location}}">
+                        <small>{{res.location}}</small>
+                    </a> |
+                    <a href="{{request.path}}?q={{res.category}}">
+                        <small>{{res.category}}</small>
+                    </a>
+                </p>
+                <ul>
+                    {% for item in res.item_set.all %}
+                    <li style="margin-bottom:15px;">
+                        <b>{{item}}</b>
+                        <br/> 
+                        {% for ing in item.get_contents %}
+                        <a href="{{request.path}}?q={{ing}}">
+                            <span class="badge" style="background-color:rgb(0, 132, 255)">{{ing}}</span>
+                        </a>
+                        {% endfor %} {% for ing in item.get_excludes %}
+                        <span class="badge">{{ing}}</span>
+                        {% endfor %}
+                    </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</ul>
+{% endfor %} 
+{% else %}
+<p class="lead">No item found</p>
+{% endif %} 
+{% endblock content %}

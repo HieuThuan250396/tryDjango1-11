@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %} 
+{% for obj in object_list %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="thumbnail">
+            <h4>
+                <a href='{%url "profiles:detail" obj.user.username%}' style="color:lightskyblue"><p ><b>{{obj.user.username}}</b></p></a>
+                <b style="color:rgb(255, 145, 0)">{{obj.name}}</b>
+            </h4>
+            <p>
+                    <a href='{%url "profiles:detail" username=obj.user.username%}?q={{obj.restaurant.title}}' style="color:lightskyblue"><b>{{obj.restaurant.title}}</b></a>
+                    <a href='{%url "profiles:detail" username=obj.user.username%}?q={{obj.restaurant.location}}'><small>{{obj.restaurant.location}}</small></a> |
+                    <a href='{%url "profiles:detail" username=obj.user.username%}?q={{obj.restaurant.category}}'><small>{{obj.restaurant.category}}</small></a>
+            </p>
+            <ul>
+                {% for ing in obj.get_contents %}
+                    <span class="badge" style="background-color:rgb(0, 132, 255)">{{ing}}</span>
+                {% endfor %}
+                {% for ing in obj.get_excludes %}
+                    <span class="badge" style="background-color:rgb(48, 48, 48)">{{ing}}</span>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock content %}
